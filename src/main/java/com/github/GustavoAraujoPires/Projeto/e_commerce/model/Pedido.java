@@ -10,9 +10,9 @@ import java.util.UUID;
 @Entity
 @Data
 public class Pedido {
-    private UUID id;
+    private Long id;
     private Cliente cliente;
     private List<Produto> listaProdutos;
-    private BigDecimal valorTotal;
+    private Double valorTotal;
     private status statusPedido;
 }
