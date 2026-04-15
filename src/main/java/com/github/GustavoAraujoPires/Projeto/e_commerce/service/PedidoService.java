@@ -3,11 +3,10 @@ package com.github.GustavoAraujoPires.Projeto.e_commerce.service;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.PedidoIvalidoException;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Pedido;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Produto;
+import com.github.GustavoAraujoPires.Projeto.e_commerce.model.StatusPedido;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.repository.PedidoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -37,12 +36,38 @@ public class PedidoService {
            valorTotal += produto.getPreco();
         }
         pedido.setValorTotal(valorTotal);
+        pedido.setStatusPedido(StatusPedido.CRIADO);
         return repository.save(pedido);
       }
 
 
-      public List<Pedido> buscarTodosPedidos(){
-        return repository.findAll();
+      public Pedido pagarPedido(Long id){
+           Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoIvalidoException("Pedido não encontrado"));
+           if(pedido.getStatusPedido() != StatusPedido.CRIADO){
+                throw new PedidoIvalidoException("Somente pedidos CRIADOS podem ser pagos");
+           }
+           pedido.setStatusPedido(StatusPedido.PAGO);
+           return repository.save(pedido);
+      }
+
+      public Pedido entregarPedido(Long id){
+          Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoIvalidoException("Pedido não encontrado"));
+          if (pedido.getStatusPedido() != StatusPedido.PAGO){
+              throw new PedidoIvalidoException("Somente pedidos Pago pode ser Entregues !!");
+          }
+          pedido.setStatusPedido(StatusPedido.ENTREGUE);
+          return repository.save(pedido);
+      }
+
+      public Pedido cancelarPedido(Long id){
+          Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoIvalidoException("Pedido não encontrado"));
+          if (pedido.getStatusPedido() == StatusPedido.CANCELADO) {
+              throw new PedidoIvalidoException("Pedido já está Cancelado !!");
+          }else if(pedido.getStatusPedido() == StatusPedido.PAGO || pedido.getStatusPedido() == StatusPedido.ENTREGUE){
+              throw new PedidoIvalidoException("Esse Pedido não pode ser Cancelado");
+          } 
+          pedido.setStatusPedido(StatusPedido.CANCELADO);
+          return repository.save(pedido);
       }
 
     }
