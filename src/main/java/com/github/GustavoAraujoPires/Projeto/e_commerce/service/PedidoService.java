@@ -8,6 +8,8 @@ import com.github.GustavoAraujoPires.Projeto.e_commerce.repository.PedidoReposit
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class PedidoService {
@@ -42,31 +44,43 @@ public class PedidoService {
 
 
       public Pedido pagarPedido(Long id){
-           Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoIvalidoException("Pedido não encontrado"));
+           Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoIvalidoException("Pedido não encontrado !!"));
            if(pedido.getStatusPedido() != StatusPedido.CRIADO){
-                throw new PedidoIvalidoException("Somente pedidos CRIADOS podem ser pagos");
+                throw new PedidoIvalidoException("Somente pedidos CRIADOS podem ser pagos !!");
            }
            pedido.setStatusPedido(StatusPedido.PAGO);
+           if (pedido.getDataPagamento() != null){
+               throw new PedidoIvalidoException("Pedido já está Pago !!");
+           }
+           pedido.setDataPagamento(LocalDateTime.now());
            return repository.save(pedido);
       }
 
       public Pedido entregarPedido(Long id){
-          Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoIvalidoException("Pedido não encontrado"));
+          Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoIvalidoException("Pedido não encontrado !!"));
           if (pedido.getStatusPedido() != StatusPedido.PAGO){
-              throw new PedidoIvalidoException("Somente pedidos Pago pode ser Entregues !!");
+              throw new PedidoIvalidoException("Somente pedidos Pagos pode ser Entregues !!");
           }
           pedido.setStatusPedido(StatusPedido.ENTREGUE);
+          if (pedido.getDataEntrega() != null){
+              throw new PedidoIvalidoException("Pedido já entregue !!");
+          }
+          pedido.setDataEntrega(LocalDateTime.now());
           return repository.save(pedido);
       }
 
       public Pedido cancelarPedido(Long id){
-          Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoIvalidoException("Pedido não encontrado"));
+          Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoIvalidoException("Pedido não encontrado !!"));
           if (pedido.getStatusPedido() == StatusPedido.CANCELADO) {
               throw new PedidoIvalidoException("Pedido já está Cancelado !!");
           }else if(pedido.getStatusPedido() == StatusPedido.PAGO || pedido.getStatusPedido() == StatusPedido.ENTREGUE){
-              throw new PedidoIvalidoException("Esse Pedido não pode ser Cancelado");
-          } 
+              throw new PedidoIvalidoException("Esse Pedido não pode ser Cancelado !!");
+          }
           pedido.setStatusPedido(StatusPedido.CANCELADO);
+          if (pedido.getDataCancelamento() != null){
+              throw new PedidoIvalidoException("Pedido já cancelado !!");
+          }
+          pedido.setDataCancelamento(LocalDateTime.now());// pega a data e hora
           return repository.save(pedido);
       }
 
