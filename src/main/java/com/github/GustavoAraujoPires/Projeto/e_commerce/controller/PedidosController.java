@@ -8,13 +8,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("pedidos")
 @RequiredArgsConstructor
 public class PedidosController {
     private final PedidoService service;
 
-    @PostMapping
+    @GetMapping
     public ResponseEntity<PedidoResponseDTO> salvarPedidos(@RequestBody PedidoRequestDTO dto){
         service.salvarPedido(dto);
         return ResponseEntity.noContent().build();

@@ -5,12 +5,12 @@ import lombok.Data;
 
 @Data
 public class ClienteDTO {
-    private String name;
+    private String nome;
     private String email;
 
     public Cliente toEntity(ClienteDTO clienteDTO){
         Cliente cliente = new Cliente();
-        cliente.setNome(this.name);
+        cliente.setNome(this.nome);
         cliente.setEmail(this.email);
         return cliente;
     }

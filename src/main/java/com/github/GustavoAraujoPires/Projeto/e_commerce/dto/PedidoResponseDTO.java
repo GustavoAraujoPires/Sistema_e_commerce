@@ -6,6 +6,7 @@ import com.github.GustavoAraujoPires.Projeto.e_commerce.model.StatusPedido;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class PedidoResponseDTO {

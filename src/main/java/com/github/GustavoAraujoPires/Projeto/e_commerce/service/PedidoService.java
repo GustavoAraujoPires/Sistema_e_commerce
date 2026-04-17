@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -51,7 +52,7 @@ public class PedidoService {
         }
            valorTotal = valorTotal.add(p.getPreco());
         }
-        pedido.setValorTotal(pedido.getValorTotal());
+        pedido.setValorTotal(valorTotal);
         pedido.setStatusPedido(StatusPedido.CRIADO);
         return repository.save(pedido);
       }

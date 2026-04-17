@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +24,6 @@ public class ClienteService {
         if (repository.existsByEmail(cliente.getEmail())){
             throw new ClienteInvalidoException("Email já cadastrado !!");
         }
-        System.out.println("Cliente cadastrado: "+ cliente.getEmail());
         return repository.save(cliente);
     }
 
@@ -36,9 +36,6 @@ public class ClienteService {
     }
 
     public void deletarCliente(Long id){
-        if (id == null){
-            throw new ClienteInvalidoException("Id Não encontrado !!! ");
-        }
-        repository.deleteById(id);
+          repository.deleteById(id);
     }
 }
