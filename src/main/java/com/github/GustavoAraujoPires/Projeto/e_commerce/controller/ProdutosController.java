@@ -21,7 +21,7 @@ public class ProdutosController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
+    @GetMapping("{id}")
     public ResponseEntity<Produto> buscarPorId(@PathVariable Long id){
         service.BuscarPedidoId(id);
         return ResponseEntity.noContent().build();

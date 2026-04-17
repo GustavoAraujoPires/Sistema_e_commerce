@@ -1,19 +1,21 @@
 package com.github.GustavoAraujoPires.Projeto.e_commerce.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+import java.util.List;
 
 @Entity
 @Data
 public class Produto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private BigDecimal preco;
 
-    @OneToMany
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 }
