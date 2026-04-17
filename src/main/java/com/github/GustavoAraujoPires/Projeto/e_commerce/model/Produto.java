@@ -12,7 +12,7 @@ import java.util.UUID;
 public class Produto {
     private Long id;
     private String nome;
-    private Double preco;
+    private BigDecimal preco;
 
     @OneToMany
     private Cliente cliente;

@@ -7,6 +7,9 @@ import com.github.GustavoAraujoPires.Projeto.e_commerce.repository.ProdutoReposi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProdutoService {
@@ -18,9 +21,9 @@ public class ProdutoService {
         }
         if (produto.getPreco() == null) {
             throw new ProdutoInvalidoException("Adicione um valor ao Produto");
-        } else if (produto.getPreco() <= 0.0) {
+        } else if (produto.getPreco().compareTo(BigDecimal.ZERO) <= 0) {
             throw new ProdutoInvalidoException("Não é permitido esse valor ");
-        } else if (produto.getPreco() > 500) {
+        } else if (produto.getPreco().compareTo(BigDecimal.ZERO) > 500) {
             throw new ProdutoInvalidoException("Não é permitido adicionar um valor maior que R$: 500.00");
         }
         return repository.save(produto);
@@ -29,4 +32,18 @@ public class ProdutoService {
     public Produto BuscarPedidoId(Long id){
         return repository.findById(id).orElseThrow(() -> new ProdutoInvalidoException("Id não castrado !"));
     }
+
+    public List<Produto> buscarTodos(){
+        return repository.findAll();
+    }
+
+    public void deletar(Long id){
+        if(id == null){
+            throw new ProdutoInvalidoException("Id invalido !!");
+        }
+        repository.deleteById(id);
+
+    }
+
+
 }

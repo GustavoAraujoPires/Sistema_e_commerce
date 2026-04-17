@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 public class Pedido {
     private Long id;
+    private String nomePedido;
     private Cliente cliente;
     private List<Produto> listaProdutos;
     private Double valorTotal;

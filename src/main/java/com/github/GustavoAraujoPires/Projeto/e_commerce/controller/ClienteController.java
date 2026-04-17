@@ -16,9 +16,9 @@ public class ClienteController {
     private final ClienteService service;
 
     @PostMapping
-    public ResponseEntity<Cliente> salvar(@RequestBody ClienteDTO dto){
+    public ResponseEntity<ClienteDTO> salvar(@RequestBody ClienteDTO dto){
         var cliente = service.salvar(dto.toEntity(dto));
-        return ResponseEntity.status(201).body(cliente);
+        return ResponseEntity.status(201).build();
     }
 
     @GetMapping
