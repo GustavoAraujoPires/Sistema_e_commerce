@@ -1,14 +1,12 @@
 package com.github.GustavoAraujoPires.Projeto.e_commerce.controller;
 
-import com.github.GustavoAraujoPires.Projeto.e_commerce.dto.PedidoRequestDTO;
-import com.github.GustavoAraujoPires.Projeto.e_commerce.dto.PedidoResponseDTO;
+import com.github.GustavoAraujoPires.Projeto.e_commerce.controller.dto.PedidoRequestDTO;
+import com.github.GustavoAraujoPires.Projeto.e_commerce.controller.dto.PedidoResponseDTO;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Pedido;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.service.PedidoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("pedidos")

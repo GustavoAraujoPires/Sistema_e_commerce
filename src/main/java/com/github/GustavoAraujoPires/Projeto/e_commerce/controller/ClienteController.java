@@ -1,16 +1,15 @@
 package com.github.GustavoAraujoPires.Projeto.e_commerce.controller;
 
-import com.github.GustavoAraujoPires.Projeto.e_commerce.dto.ClienteDTO;
+import com.github.GustavoAraujoPires.Projeto.e_commerce.controller.dto.ClienteDTO;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.ClienteInvalidoException;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Cliente;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.service.ClienteService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("clientes")
@@ -19,7 +18,7 @@ public class ClienteController {
     private final ClienteService service;
 
     @PostMapping
-    public ResponseEntity<ClienteDTO> salvar(@RequestBody ClienteDTO dto){
+    public ResponseEntity<ClienteDTO> salvar(@RequestBody @Valid ClienteDTO dto){
         var cliente = service.salvar(dto.toEntity(dto));
         return ResponseEntity.noContent().build();
     }

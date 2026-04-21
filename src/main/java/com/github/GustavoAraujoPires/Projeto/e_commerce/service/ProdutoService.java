@@ -1,7 +1,6 @@
 package com.github.GustavoAraujoPires.Projeto.e_commerce.service;
 
 import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.ProdutoInvalidoException;
-import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Pedido;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Produto;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

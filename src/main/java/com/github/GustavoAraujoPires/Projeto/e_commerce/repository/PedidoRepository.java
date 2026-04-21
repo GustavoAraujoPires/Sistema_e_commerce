@@ -4,8 +4,6 @@ import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Cliente;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.UUID;
-
 public interface PedidoRepository extends JpaRepository<Pedido, Long>{
     boolean existsByCliente(Cliente cliente);
 }

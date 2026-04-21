@@ -1,6 +1,6 @@
 package com.github.GustavoAraujoPires.Projeto.e_commerce.service;
 
-import com.github.GustavoAraujoPires.Projeto.e_commerce.dto.PedidoRequestDTO;
+import com.github.GustavoAraujoPires.Projeto.e_commerce.controller.dto.PedidoRequestDTO;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.ClienteInvalidoException;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.PedidoInvalidoException;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Cliente;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

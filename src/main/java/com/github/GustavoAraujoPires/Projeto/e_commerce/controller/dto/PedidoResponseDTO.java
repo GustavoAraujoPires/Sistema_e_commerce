@@ -1,4 +1,4 @@
-package com.github.GustavoAraujoPires.Projeto.e_commerce.dto;
+package com.github.GustavoAraujoPires.Projeto.e_commerce.controller.dto;
 
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Cliente;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Produto;
@@ -6,7 +6,6 @@ import com.github.GustavoAraujoPires.Projeto.e_commerce.model.StatusPedido;
 import lombok.Data;
 
 import java.util.List;
-import java.util.UUID;
 
 @Data
 public class PedidoResponseDTO {

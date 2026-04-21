@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -15,12 +14,6 @@ public class ClienteService {
     private final ClienteRepository repository;
 
     public Cliente salvar(Cliente cliente){
-        if(cliente.getNome() == null || cliente.getNome().isBlank()){ // é um método do Java (String) que verifica se o texto está:  Vazio OU só com espaços
-            throw new ClienteInvalidoException("Nome do Cliente Invalido");
-        }
-        if(cliente.getEmail() == null || !cliente.getEmail().contains("@")){
-            throw new ClienteInvalidoException("Email inválido");
-        }
         if (repository.existsByEmail(cliente.getEmail())){
             throw new ClienteInvalidoException("Email já cadastrado !!");
         }
