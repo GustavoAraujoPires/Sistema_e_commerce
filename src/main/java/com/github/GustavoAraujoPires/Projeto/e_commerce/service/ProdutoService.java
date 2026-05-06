@@ -37,12 +37,11 @@ public class ProdutoService {
     }
 
     public void deletar(Long id){
-        if(id == null){
+        var produtos = repository.findById(id);
+        if(produtos.isPresent()){
+            repository.deleteById(id);
+        }else {
             throw new ProdutoInvalidoException("Id invalido !!");
         }
-        repository.deleteById(id);
-
     }
-
-
 }

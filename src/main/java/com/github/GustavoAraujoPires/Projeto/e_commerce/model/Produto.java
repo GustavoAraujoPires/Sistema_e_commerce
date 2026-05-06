@@ -15,6 +15,6 @@ public class Produto {
     private BigDecimal preco;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @Transient
     private Cliente cliente;
 }

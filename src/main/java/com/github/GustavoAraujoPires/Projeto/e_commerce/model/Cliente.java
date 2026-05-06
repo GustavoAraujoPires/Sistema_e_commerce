@@ -15,5 +15,6 @@ public class Cliente {
     private String email;
 
     @OneToMany
+    @Transient
     private List<Pedido> ListaDePedidos;
 }

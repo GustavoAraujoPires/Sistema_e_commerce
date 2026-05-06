@@ -26,8 +26,16 @@ public class PedidoService {
 
     public Pedido salvarPedido(PedidoRequestDTO dto) {
 
-        Cliente cliente = clienteRepository.findById(dto.getClienteId())
-                .orElseThrow(() -> new ClienteInvalidoException("Cliente não encontrado por ID !!"));
+        if (dto.getClienteId() == null){
+            throw new PedidoInvalidoException("Cliente não encontrado !!");
+        }
+            Cliente cliente = clienteRepository.findById(dto.getClienteId())
+                    .orElseThrow(() -> new ClienteInvalidoException("Cliente não encontrado por ID !!"));
+
+        if (dto.getListaPedidoIds().isEmpty()){
+            throw new PedidoInvalidoException("Lista de pedidos está fazia !!");
+        }
+
 
         List<Produto> produtos = produtoRepository.findAllById(dto.getListaPedidoIds());
 
@@ -35,7 +43,7 @@ public class PedidoService {
             throw new PedidoInvalidoException("um ou mais Produtos não foram encontrado !!");
         }
 
-        Pedido pedido =  new Pedido();
+        Pedido pedido = new Pedido();
         pedido.setCliente(cliente);
         pedido.setListaProdutos(produtos);
 
@@ -51,6 +59,17 @@ public class PedidoService {
         }
            valorTotal = valorTotal.add(p.getPreco());
         }
+
+        if (produtos.size() == 1) {
+            // Se tiver apenas 1 produto, usa o nome dele
+            pedido.setNomePedido(produtos.get(0).getNome());
+        } else {
+            // Se tiver vários produtos, pega o nome do primeiro e adiciona "+X"
+            String primeiroProduto = produtos.get(0).getNome();
+            int restante = produtos.size() - 1;
+            pedido.setNomePedido(primeiroProduto + " +" + restante);
+        }
+
         pedido.setValorTotal(valorTotal);
         pedido.setStatusPedido(StatusPedido.CRIADO);
         return repository.save(pedido);
@@ -95,6 +114,10 @@ public class PedidoService {
           }
           pedido.setDataCancelamento(LocalDateTime.now());// pega a data e hora
           return repository.save(pedido);
+      }
+
+      public void deletar (Long id){
+        repository.deleteById(id);
       }
 
     }

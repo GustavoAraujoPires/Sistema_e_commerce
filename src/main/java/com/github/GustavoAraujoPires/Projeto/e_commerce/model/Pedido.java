@@ -15,17 +15,19 @@ public class Pedido {
     private Long id;
     private String nomePedido;
     private BigDecimal valorTotal;
-    private StatusPedido statusPedido;
     private LocalDateTime dataCancelamento;
     private LocalDateTime dataPagamento;
     private LocalDateTime dataEntrega;
+
+    @Enumerated(EnumType.STRING)
+    private StatusPedido statusPedido;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-
     @ManyToMany
+    @Transient
     @JoinTable(name = "produto_id")
     private List<Produto> listaProdutos;
 

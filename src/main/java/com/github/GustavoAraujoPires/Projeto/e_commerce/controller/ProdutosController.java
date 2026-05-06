@@ -23,14 +23,14 @@ public class ProdutosController {
 
     @GetMapping("{id}")
     public ResponseEntity<Produto> buscarPorId(@PathVariable Long id){
-        service.BuscarPedidoId(id);
-        return ResponseEntity.noContent().build();
+        var produtos = service.BuscarPedidoId(id);
+        return ResponseEntity.ok().body(produtos);
     }
 
     @GetMapping
     public ResponseEntity<List<Produto>> buscarTodos(){
-        service.buscarTodos();
-       return ResponseEntity.noContent().build();
+        var produto = service.buscarTodos();
+       return ResponseEntity.ok().body(produto);
     }
 
     @DeleteMapping("{id}")

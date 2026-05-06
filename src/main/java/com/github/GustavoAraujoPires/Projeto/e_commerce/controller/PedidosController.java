@@ -14,27 +14,33 @@ import org.springframework.web.bind.annotation.*;
 public class PedidosController {
     private final PedidoService service;
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<PedidoResponseDTO> salvarPedidos(@RequestBody PedidoRequestDTO dto){
-        service.salvarPedido(dto);
+         service.salvarPedido(dto);
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("{id}/pagar")
+    @PatchMapping("/{id}/pagar")
     public ResponseEntity<Pedido> pagarPedido(@PathVariable Long id){
         var pagar = service.pagarPedido(id);
         return ResponseEntity.ok().body(pagar);
     }
 
-    @PatchMapping("{id}/entregar")
+    @PatchMapping("/{id}/entregar")
     public ResponseEntity<Pedido> entregarPedido(@PathVariable Long id){
         var entregar = service.entregarPedido(id);
         return ResponseEntity.ok().body(entregar);
     }
 
-    @PatchMapping("{id}/cancelar")
-    public ResponseEntity<Void> cancelarPedido(@PathVariable Long id){
-       service.cancelarPedido(id);
+    @PatchMapping("/{id}/cancelar")
+    public ResponseEntity<Pedido> cancelarPedido(@PathVariable Long id){
+       var cancelar = service.cancelarPedido(id);
+        return ResponseEntity.ok().body(cancelar);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar (@PathVariable Long id){
+        service.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }
