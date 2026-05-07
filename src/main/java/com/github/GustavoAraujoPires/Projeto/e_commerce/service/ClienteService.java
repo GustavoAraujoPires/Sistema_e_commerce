@@ -1,10 +1,9 @@
 package com.github.GustavoAraujoPires.Projeto.e_commerce.service;
 
+import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.IdNaoEncontradoException;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.ClienteInvalidoException;
-import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.ClienteIdNaoEncontradoException;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Cliente;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.repository.ClienteRepository;
-import com.github.GustavoAraujoPires.Projeto.e_commerce.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ClienteService {
     private final ClienteRepository repository;
-    private final ProdutoRepository produtoRepository;
 
     public Cliente salvar(Cliente cliente){
         if (repository.existsByEmail(cliente.getEmail())){
@@ -28,7 +26,7 @@ public class ClienteService {
     }
 
     public Cliente buscarPorId(Long id){
-        return repository.findById(id).orElseThrow(() -> new ClienteIdNaoEncontradoException("Id não encontrado !!"));
+        return repository.findById(id).orElseThrow(() -> new IdNaoEncontradoException("Id não encontrado !!"));
     }
 
     public void deletarCliente(Long id){
@@ -38,7 +36,7 @@ public class ClienteService {
             repository.deleteById(id);
         }
         else {
-            throw new ClienteIdNaoEncontradoException("Id não encontrado !!");
+            throw new IdNaoEncontradoException("Id não encontrado !!");
         }
     }
 }

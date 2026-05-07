@@ -2,9 +2,7 @@ package com.github.GustavoAraujoPires.Projeto.e_commerce.controller.common;
 
 import com.github.GustavoAraujoPires.Projeto.e_commerce.controller.dto.ErroCampo;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.controller.dto.ErroResposta;
-import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.ClienteIdNaoEncontradoException;
-import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.ClienteInvalidoException;
-import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.ProdutoInvalidoException;
+import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,28 +29,42 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ClienteInvalidoException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErroResposta handerClienteInvalidoException(ClienteInvalidoException e) {
-        return  ErroResposta.RespostaPadrao(e.getMessage());
+        return  ErroResposta.clienteNaoEncontrado(e.getMessage());
     }
 
-    @ExceptionHandler(ClienteIdNaoEncontradoException.class)
+    @ExceptionHandler(IdNaoEncontradoException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErroResposta handerClienteInvalido(ClienteIdNaoEncontradoException e) {
-        return ErroResposta.RespostaPadrao(e.getMessage());
+    public ErroResposta handerIdInvalidoException(IdNaoEncontradoException e) {
+        return  ErroResposta.idNaoEncontrado(e.getMessage());
     }
 
     @ExceptionHandler(ProdutoInvalidoException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErroResposta handerProdutosInvalidoException(ProdutoInvalidoException e) {
-        return  ErroResposta.RespostaPadrao(e.getMessage());
+        return ErroResposta.produtoNaoEncontrado(e.getMessage());
+    }
+    @ExceptionHandler(PedidoInvalidoException.class)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public ErroResposta handerPedidoInvalidoException(PedidoInvalidoException e) {
+        return ErroResposta.naoPermitido(e.getMessage());
+    }
+    @ExceptionHandler(PagamentoInvalidoException.class)
+    @ResponseStatus(HttpStatus.PAYMENT_REQUIRED)
+    public ErroResposta handerPagamentoInvalido(PagamentoInvalidoException e){
+        return ErroResposta.PagamentoInvalido(e.getMessage());
+    }
+    @ExceptionHandler(PedidoEntregueException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErroResposta handerPedidoJaEntregue(PedidoEntregueException e){
+        return ErroResposta.naoAltorizado(e.getMessage());
     }
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErroResposta handerErroNaoTratado(RuntimeException e){
-        return new ErroResposta(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Ocorreu um erro inesperado. Entre em contato com a administração.", List.of());
-    }
-
+    return new ErroResposta(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Ocorreu um erro inesperado. Entre em contato com a administração.", List.of());
+   }
 }
 

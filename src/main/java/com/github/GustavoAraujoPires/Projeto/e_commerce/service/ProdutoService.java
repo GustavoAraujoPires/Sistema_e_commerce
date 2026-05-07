@@ -1,5 +1,6 @@
 package com.github.GustavoAraujoPires.Projeto.e_commerce.service;
 
+import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.IdNaoEncontradoException;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.ProdutoInvalidoException;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Produto;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.repository.ProdutoRepository;
@@ -22,14 +23,12 @@ public class ProdutoService {
             throw new ProdutoInvalidoException("Adicione um valor ao Produto");
         } else if (produto.getPreco().compareTo(BigDecimal.ZERO) <= 0) {
             throw new ProdutoInvalidoException("Não é permitido esse valor ");
-        } else if (produto.getPreco().compareTo(BigDecimal.ZERO) > 500) {
-            throw new ProdutoInvalidoException("Não é permitido adicionar um valor maior que R$: 500.00");
         }
         return repository.save(produto);
     }
 
     public Produto BuscarPedidoId(Long id){
-        return repository.findById(id).orElseThrow(() -> new ProdutoInvalidoException("Id não castrado !"));
+        return repository.findById(id).orElseThrow(() -> new IdNaoEncontradoException("Id não encontrado !!"));
     }
 
     public List<Produto> buscarTodos(){
@@ -41,7 +40,7 @@ public class ProdutoService {
         if(produtos.isPresent()){
             repository.deleteById(id);
         }else {
-            throw new ProdutoInvalidoException("Id invalido !!");
+            throw new IdNaoEncontradoException("Id não encontrado !!");
         }
     }
 }

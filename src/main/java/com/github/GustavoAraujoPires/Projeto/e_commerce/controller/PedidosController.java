@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("pedidos")
 @RequiredArgsConstructor
@@ -18,6 +20,11 @@ public class PedidosController {
     public ResponseEntity<PedidoResponseDTO> salvarPedidos(@RequestBody PedidoRequestDTO dto){
          service.salvarPedido(dto);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public List<Pedido>buscarTodos(){
+        return service.buscarTodos();
     }
 
     @PatchMapping("/{id}/pagar")

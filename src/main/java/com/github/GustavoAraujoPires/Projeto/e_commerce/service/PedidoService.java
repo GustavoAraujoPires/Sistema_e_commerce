@@ -1,8 +1,7 @@
 package com.github.GustavoAraujoPires.Projeto.e_commerce.service;
 
 import com.github.GustavoAraujoPires.Projeto.e_commerce.controller.dto.PedidoRequestDTO;
-import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.ClienteInvalidoException;
-import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.PedidoInvalidoException;
+import com.github.GustavoAraujoPires.Projeto.e_commerce.exception.*;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Cliente;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Pedido;
 import com.github.GustavoAraujoPires.Projeto.e_commerce.model.Produto;
@@ -26,20 +25,17 @@ public class PedidoService {
 
     public Pedido salvarPedido(PedidoRequestDTO dto) {
 
-        if (dto.getClienteId() == null){
-            throw new PedidoInvalidoException("Cliente não encontrado !!");
-        }
-            Cliente cliente = clienteRepository.findById(dto.getClienteId())
-                    .orElseThrow(() -> new ClienteInvalidoException("Cliente não encontrado por ID !!"));
+        Cliente cliente = clienteRepository.findById(dto.getClienteId())
+                .orElseThrow(() ->  new ClienteInvalidoException("Id não encontrado !!"));
 
-        if (dto.getListaPedidoIds().isEmpty()){
+        if (dto.getListaPedidoIds().isEmpty()) {
             throw new PedidoInvalidoException("Lista de pedidos está fazia !!");
         }
 
 
         List<Produto> produtos = produtoRepository.findAllById(dto.getListaPedidoIds());
 
-        if(produtos.size() != dto.getListaPedidoIds().size()){
+        if (produtos.size() != dto.getListaPedidoIds().size()) {
             throw new PedidoInvalidoException("um ou mais Produtos não foram encontrado !!");
         }
 
@@ -47,17 +43,17 @@ public class PedidoService {
         pedido.setCliente(cliente);
         pedido.setListaProdutos(produtos);
 
-       BigDecimal valorTotal = BigDecimal.ZERO;
+        BigDecimal valorTotal = BigDecimal.ZERO;
 
-        for (Produto p : produtos){
-           if (p == null){
-               throw new PedidoInvalidoException("Produto Invalido");
-           }else if (p.getPreco() == null) {
-            throw new PedidoInvalidoException("Cadastre o Produto com um Valor !");
-        } else if (p.getPreco().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new PedidoInvalidoException("O valor do pedido Tem que ser maior que zero !!");
-        }
-           valorTotal = valorTotal.add(p.getPreco());
+        for (Produto p : produtos) {
+            if (p == null) {
+                throw new PedidoInvalidoException("Produto Invalido");
+            } else if (p.getPreco() == null) {
+                throw new PedidoInvalidoException("Cadastre o Produto com um Valor !");
+            } else if (p.getPreco().compareTo(BigDecimal.ZERO) <= 0) {
+                throw new PedidoInvalidoException("O valor do pedido Tem que ser maior que zero !!");
+            }
+            valorTotal = valorTotal.add(p.getPreco());
         }
 
         if (produtos.size() == 1) {
@@ -73,52 +69,55 @@ public class PedidoService {
         pedido.setValorTotal(valorTotal);
         pedido.setStatusPedido(StatusPedido.CRIADO);
         return repository.save(pedido);
-      }
-
-      public Pedido pagarPedido(Long id){
-           Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoInvalidoException("Pedido não encontrado !!"));
-           if(pedido.getStatusPedido() != StatusPedido.CRIADO){
-                throw new PedidoInvalidoException("Somente pedidos CRIADOS podem ser pagos !!");
-           }
-           pedido.setStatusPedido(StatusPedido.PAGO);
-           if (pedido.getDataPagamento() != null){
-               throw new PedidoInvalidoException("Pedido já está Pago !!");
-           }
-           pedido.setDataPagamento(LocalDateTime.now());
-           return repository.save(pedido);
-      }
-
-      public Pedido entregarPedido(Long id){
-          Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoInvalidoException("Pedido não encontrado !!"));
-          if (pedido.getStatusPedido() != StatusPedido.PAGO){
-              throw new PedidoInvalidoException("Somente pedidos Pagos pode ser Entregues !!");
-          }
-          pedido.setStatusPedido(StatusPedido.ENTREGUE);
-          if (pedido.getDataEntrega() != null){
-              throw new PedidoInvalidoException("Pedido já entregue !!");
-          }
-          pedido.setDataEntrega(LocalDateTime.now());
-          return repository.save(pedido);
-      }
-
-      public Pedido cancelarPedido(Long id){
-          Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoInvalidoException("Pedido não encontrado !!"));
-          if (pedido.getStatusPedido() == StatusPedido.CANCELADO) {
-              throw new PedidoInvalidoException("Pedido já está Cancelado !!");
-          }else if(pedido.getStatusPedido() == StatusPedido.PAGO || pedido.getStatusPedido() == StatusPedido.ENTREGUE){
-              throw new PedidoInvalidoException("Esse Pedido não pode ser Cancelado !!");
-          }
-          pedido.setStatusPedido(StatusPedido.CANCELADO);
-          if (pedido.getDataCancelamento() != null){
-              throw new PedidoInvalidoException("Pedido já cancelado !!");
-          }
-          pedido.setDataCancelamento(LocalDateTime.now());// pega a data e hora
-          return repository.save(pedido);
-      }
-
-      public void deletar (Long id){
-        repository.deleteById(id);
-      }
-
     }
+
+    public Pedido pagarPedido(Long id) {
+        Pedido pedido = repository.findById(id).orElseThrow(() -> new PagamentoInvalidoException("Somente pedidos CRIADOS podem ser pagos !!"));
+        pedido.setStatusPedido(StatusPedido.PAGO);
+        if (pedido.getDataPagamento() != null) {
+            throw new PagamentoInvalidoException("Pedido já está Pago !!");
+        }
+        pedido.setDataPagamento(LocalDateTime.now());
+        return repository.save(pedido);
+    }
+
+    public Pedido entregarPedido(Long id) {
+        Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoInvalidoException("Somente pedidos Pagos pode ser Entregues !!"));
+        pedido.setStatusPedido(StatusPedido.ENTREGUE);
+        if (pedido.getDataEntrega() != null) {
+            throw new PedidoEntregueException("Pedido já foi entregue !!");
+        }
+        pedido.setDataEntrega(LocalDateTime.now());
+        return repository.save(pedido);
+    }
+
+    public Pedido cancelarPedido(Long id) {
+        Pedido pedido = repository.findById(id).orElseThrow(() -> new PedidoInvalidoException("Pedido não encontrado !!"));
+        if (pedido.getStatusPedido() == StatusPedido.CANCELADO) {
+            throw new PedidoInvalidoException("O pedido já está cancelado. !!");
+        } else if (pedido.getStatusPedido() == StatusPedido.PAGO || pedido.getStatusPedido() == StatusPedido.ENTREGUE) {
+            throw new PedidoInvalidoException("Este pedido não pode ser cancelado, pois já foi entregue. !!");
+        }
+        pedido.setStatusPedido(StatusPedido.CANCELADO);
+        if (pedido.getDataCancelamento() != null) {
+            throw new PedidoInvalidoException("O pedido já está cancelado. !!");
+        }
+        pedido.setDataCancelamento(LocalDateTime.now());// pega a data e hora
+        return repository.save(pedido);
+    }
+
+    public void deletar(Long id) {
+        var resultado = repository.findById(id);
+        if (resultado.isPresent()) {
+            repository.deleteById(id);
+        } else {
+            throw new IdNaoEncontradoException("Id não encontrado !!");
+        }
+    }
+
+    public List<Pedido>buscarTodos(){
+        return repository.findAll();
+    }
+
+}
 
