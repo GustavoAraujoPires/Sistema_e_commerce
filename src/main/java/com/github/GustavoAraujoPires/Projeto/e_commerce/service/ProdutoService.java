@@ -16,7 +16,7 @@ public class ProdutoService {
     private final ProdutoRepository repository;
 
     public Produto salvarProduto(Produto produto) {
-        if (produto.getNome() == null || produto.getNome().isBlank()) {
+        if (produto.getProdutoPrincipal() == null || produto.getProdutoPrincipal().isBlank()) {
             throw new ProdutoInvalidoException("Nome do Pedido Iválido: ");
         }
         if (produto.getPreco() == null) {

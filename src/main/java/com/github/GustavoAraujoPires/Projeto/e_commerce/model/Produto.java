@@ -11,8 +11,9 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
+    private String produtoPrincipal;
     private BigDecimal preco;
+
 
     @ManyToOne
     @Transient

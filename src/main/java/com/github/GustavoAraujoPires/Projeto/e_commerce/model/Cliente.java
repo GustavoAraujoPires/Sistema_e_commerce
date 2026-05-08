@@ -1,5 +1,6 @@
 package com.github.GustavoAraujoPires.Projeto.e_commerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,5 +17,6 @@ public class Cliente {
 
     @OneToMany
     @Transient
+    @JsonIgnore
     private List<Pedido> ListaDePedidos;
 }

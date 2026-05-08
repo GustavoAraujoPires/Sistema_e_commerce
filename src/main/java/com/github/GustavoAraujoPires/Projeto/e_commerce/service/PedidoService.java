@@ -28,14 +28,14 @@ public class PedidoService {
         Cliente cliente = clienteRepository.findById(dto.getClienteId())
                 .orElseThrow(() ->  new ClienteInvalidoException("Id não encontrado !!"));
 
-        if (dto.getListaPedidoIds().isEmpty()) {
+        if (dto.getProdutosIds().isEmpty()) {
             throw new PedidoInvalidoException("Lista de pedidos está fazia !!");
         }
 
 
-        List<Produto> produtos = produtoRepository.findAllById(dto.getListaPedidoIds());
+        List<Produto> produtos = produtoRepository.findAllById(dto.getProdutosIds());
 
-        if (produtos.size() != dto.getListaPedidoIds().size()) {
+        if (produtos.size() != dto.getProdutosIds().size()) {
             throw new PedidoInvalidoException("um ou mais Produtos não foram encontrado !!");
         }
 
@@ -58,10 +58,10 @@ public class PedidoService {
 
         if (produtos.size() == 1) {
             // Se tiver apenas 1 produto, usa o nome dele
-            pedido.setNomePedido(produtos.get(0).getNome());
+            pedido.setNomePedido(produtos.get(0).getProdutoPrincipal());
         } else {
             // Se tiver vários produtos, pega o nome do primeiro e adiciona "+X"
-            String primeiroProduto = produtos.get(0).getNome();
+            String primeiroProduto = produtos.get(0).getProdutoPrincipal();
             int restante = produtos.size() - 1;
             pedido.setNomePedido(primeiroProduto + " +" + restante);
         }
