@@ -1,4 +1,4 @@
-# 🛒 Projeto E-commerce API
+# Projeto E-commerce API
 
 <p align="center">
   <img src="https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=openjdk" />
@@ -9,7 +9,7 @@
 
 ---
 
-# 📚 Sobre o Projeto
+# Sobre o Projeto
 
 Este projeto é uma API REST de E-commerce desenvolvida utilizando:
 
@@ -36,7 +36,7 @@ O objetivo principal da aplicação é simular o funcionamento básico de um sis
 
 ---
 
-# 🎯 Objetivo do Projeto
+# Objetivo do Projeto
 
 Este projeto foi criado com foco em aprendizado de:
 
@@ -52,7 +52,7 @@ Este projeto foi criado com foco em aprendizado de:
 
 ---
 
-# 🧱 Estrutura do Projeto
+# Estrutura do Projeto
 
 ```bash
 src/main/java/com/github/GustavoAraujoPires/Projeto/e_commerce
@@ -102,11 +102,11 @@ src/main/java/com/github/GustavoAraujoPires/Projeto/e_commerce
 
 ---
 
-# 🧠 Explicação da Arquitetura
+# Explicação da Arquitetura
 
 A aplicação segue uma arquitetura em camadas.
 
-## 📌 Controller
+## Controller
 
 Responsável por receber as requisições HTTP.
 
@@ -121,7 +121,7 @@ Aqui a API recebe os dados enviados pelo usuário.
 
 ---
 
-## 📌 Service
+## Service
 
 Responsável pelas regras de negócio.
 
@@ -137,7 +137,7 @@ A camada Service evita que a regra de negócio fique dentro do controller.
 
 ---
 
-## 📌 Repository
+## Repository
 
 Responsável pela comunicação com o banco de dados.
 
@@ -151,7 +151,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>
 
 ---
 
-## 📌 DTO
+## DTO
 
 DTO significa:
 
@@ -172,7 +172,7 @@ public class ProdutoDTO {
 
 ---
 
-## 📌 Mapper
+## Mapper
 
 O MapStruct é utilizado para converter DTO → Entidade.
 
@@ -184,7 +184,7 @@ Produto toEntity(ProdutoDTO dto);
 
 ---
 
-## 📌 Exception Handler
+## Exception Handler
 
 Centraliza os erros da aplicação.
 
@@ -207,27 +207,27 @@ Exemplo:
 
 ---
 
-# ⚙️ Dependências Utilizadas
+# Dependências Utilizadas
 
-## 📦 Spring Web MVC
+## Spring Web MVC
 
 Responsável pela criação da API REST.
 
 ---
 
-## 📦 Spring Data JPA
+## Spring Data JPA
 
 Responsável pela persistência de dados.
 
 ---
 
-## 📦 MySQL Connector
+## MySQL Connector
 
 Conexão com banco de dados MySQL.
 
 ---
 
-## 📦 Lombok
+## Lombok
 
 Reduz código repetitivo.
 
@@ -240,15 +240,15 @@ Exemplo:
 
 ---
 
-## 📦 MapStruct
+## MapStruct
 
 Automatiza o mapeamento entre DTOs e entidades.
 
 ---
 
-# 🚀 Como Rodar o Projeto
+# Como Rodar o Projeto
 
-# 1️⃣ Clonar o Repositório
+# Clonar o Repositório
 
 ```bash
 git clone URL_DO_REPOSITORIO
@@ -256,7 +256,7 @@ git clone URL_DO_REPOSITORIO
 
 ---
 
-# 2️⃣ Entrar na Pasta
+# Entrar na Pasta
 
 ```bash
 cd Projeto-e-commerce
@@ -264,7 +264,7 @@ cd Projeto-e-commerce
 
 ---
 
-# 3️⃣ Configurar o Banco MySQL
+#  Configurar o Banco MySQL
 
 Crie um banco no MySQL:
 
@@ -274,7 +274,7 @@ CREATE DATABASE ecommerce;
 
 ---
 
-# 4️⃣ Configurar o application.yaml
+# Configurar o application.yaml
 
 Local:
 
@@ -299,7 +299,7 @@ spring:
 
 ---
 
-# 5️⃣ Rodar a Aplicação
+# Rodar a Aplicação
 
 ## Pelo IntelliJ
 
@@ -323,7 +323,7 @@ mvnw.cmd spring-boot:run
 
 ---
 
-# 🌐 Porta da Aplicação
+# Porta da Aplicação
 
 Por padrão:
 
@@ -333,11 +333,11 @@ http://localhost:8080
 
 ---
 
-# 📬 Endpoints da API
+# Endpoints da API
 
-# 👤 Clientes
+# Clientes
 
-## ➕ Criar Cliente
+## Criar Cliente
 
 ```http
 POST /clientes
@@ -354,7 +354,7 @@ POST /clientes
 
 ---
 
-## 📋 Buscar Todos Clientes
+## Buscar Todos Clientes
 
 ```http
 GET /clientes
@@ -362,7 +362,7 @@ GET /clientes
 
 ---
 
-## 🔎 Buscar Cliente por ID
+##  Buscar Cliente por ID
 
 ```http
 GET /clientes/{id}
@@ -370,7 +370,7 @@ GET /clientes/{id}
 
 ---
 
-## ❌ Deletar Cliente
+##  Deletar Cliente
 
 ```http
 DELETE /clientes/{id}
@@ -378,9 +378,9 @@ DELETE /clientes/{id}
 
 ---
 
-# 📦 Produtos
+#  Produtos
 
-## ➕ Criar Produto
+##  Criar Produto
 
 ```http
 POST /produtos
@@ -399,7 +399,7 @@ POST /produtos
 
 ---
 
-## 📋 Buscar Todos Produtos
+##  Buscar Todos Produtos
 
 ```http
 GET /produtos
@@ -407,7 +407,7 @@ GET /produtos
 
 ---
 
-## 🔎 Buscar Produto por ID
+##  Buscar Produto por ID
 
 ```http
 GET /produtos/{id}
@@ -415,7 +415,7 @@ GET /produtos/{id}
 
 ---
 
-## ✏️ Atualizar Produto
+##  Atualizar Produto
 
 ```http
 PUT /produtos/{id}
@@ -434,7 +434,7 @@ PUT /produtos/{id}
 
 ---
 
-## ❌ Deletar Produto
+##  Deletar Produto
 
 ```http
 DELETE /produtos/{id}
@@ -442,9 +442,9 @@ DELETE /produtos/{id}
 
 ---
 
-# 🛒 Pedidos
+#  Pedidos
 
-## ➕ Criar Pedido
+##  Criar Pedido
 
 ```http
 POST /pedidos
@@ -461,7 +461,7 @@ POST /pedidos
 
 ---
 
-## 📋 Buscar Todos Pedidos
+##  Buscar Todos Pedidos
 
 ```http
 GET /pedidos
@@ -469,7 +469,7 @@ GET /pedidos
 
 ---
 
-## 🔎 Buscar Pedido por ID
+##  Buscar Pedido por ID
 
 ```http
 GET /pedidos/{id}
@@ -477,7 +477,7 @@ GET /pedidos/{id}
 
 ---
 
-## 💳 Pagar Pedido
+##  Pagar Pedido
 
 ```http
 PATCH /pedidos/{id}/pagar
@@ -485,7 +485,7 @@ PATCH /pedidos/{id}/pagar
 
 ---
 
-## 🚚 Entregar Pedido
+##  Entregar Pedido
 
 ```http
 PATCH /pedidos/{id}/entregar
@@ -493,7 +493,7 @@ PATCH /pedidos/{id}/entregar
 
 ---
 
-## ❌ Cancelar Pedido
+##  Cancelar Pedido
 
 ```http
 PATCH /pedidos/{id}/cancelar
@@ -501,7 +501,7 @@ PATCH /pedidos/{id}/cancelar
 
 ---
 
-## 🗑️ Deletar Pedido
+##  Deletar Pedido
 
 ```http
 DELETE /pedidos/{id}
@@ -509,7 +509,7 @@ DELETE /pedidos/{id}
 
 ---
 
-# 🛡️ Tratamento de Exceções
+# Tratamento de Exceções
 
 A aplicação possui tratamento global de erros.
 
@@ -556,9 +556,9 @@ A aplicação possui tratamento global de erros.
 
 ---
 
-# 🔍 Explicando o Fluxo da Aplicação
+#  Explicando o Fluxo da Aplicação
 
-# 🧠 Fluxo de Cadastro de Cliente
+#  Fluxo de Cadastro de Cliente
 
 ```text
 Cliente envia requisição
@@ -578,7 +578,7 @@ Resposta retorna ao usuário
 
 ---
 
-# 🧠 Fluxo de Cadastro de Produto
+#  Fluxo de Cadastro de Produto
 
 ```text
 Usuário envia dados do produto
@@ -598,7 +598,7 @@ Resposta enviada ao usuário
 
 ---
 
-# 🧠 Fluxo de Criação de Pedido
+#  Fluxo de Criação de Pedido
 
 ```text
 Usuário envia clienteId e produtos
@@ -620,7 +620,7 @@ Resposta enviada
 
 ---
 
-# 📚 Conceitos Aplicados no Projeto
+#  Conceitos Aplicados no Projeto
 
 | Conceito | Aplicação |
 |---|---|
@@ -635,21 +635,21 @@ Resposta enviada
 
 ---
 
-# 🧪 Ferramentas Recomendadas para Testar
+#  Ferramentas Recomendadas para Testar
 
-## ✅ Postman
+##  Postman
 
 Ideal para testar endpoints.
 
 ---
 
-## ✅ Insomnia
+##  Insomnia
 
 Alternativa ao Postman para testes de API.
 
 ---
 
-# 💻 Tecnologias Utilizadas
+#  Tecnologias Utilizadas
 
 - Java 21
 - Spring Boot 4
@@ -662,7 +662,7 @@ Alternativa ao Postman para testes de API.
 
 ---
 
-# 👨‍💻 Autor
+# Autor
 
 Desenvolvido por Gustavo Araujo Pires.
 
@@ -670,7 +670,7 @@ Projeto desenvolvido com foco em aprendizado de desenvolvimento backend com Java
 
 ---
 
-# ❤️ Considerações Finais
+# Considerações Finais
 
 Este projeto foi muito importante para consolidar conhecimentos em:
 
