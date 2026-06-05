@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+        body{
+          height:100vh;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          background: linear-gradient(135deg,#4f46e5,#9333ea);
+          font-family: Arial, sans-serif;
+        }
+
+        .login-box{
+          width:100%;
+          max-width:400px;
+          background:#fff;
+          border-radius:20px;
+          overflow:hidden;
+          box-shadow:0 15px 35px rgba(0,0,0,0.2);
+          animation:fade 0.7s ease;
+        }
+
+        .topo{
+          background: linear-gradient(135deg,#6366f1,#8b5cf6);
+          color:white;
+          text-align:center;
+          padding:30px;
+        }
+
+        .topo i{
+          font-size:55px;
+          margin-bottom:10px;
+        }
+
+        .form-control{
+          border-radius:12px;
+          padding:12px;
+        }
+
+        .btn-login{
+          background: linear-gradient(135deg,#6366f1,#8b5cf6);
+          border:none;
+          border-radius:12px;
+          padding:12px;
+          font-weight:bold;
+          transition:0.3s;
+        }
+
+        .btn-login:hover{
+          transform:translateY(-2px);
+          opacity:0.95;
+        }
+
+        @keyframes fade{
+          from{
+            opacity:0;
+            transform:translateY(20px);
+          }
+          to{
+            opacity:1;
+            transform:translateY(0);
+          }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <div class="topo">
+        <i class="bi bi-shield-lock-fill"></i>
+        <h2>Área de Login</h2>
+        <p>Entre com seus dados</p>
+    </div>
+
+    <div class="p-4">
+
+        <form method="post" th:action="@{/login}">
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu usuário">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Senha</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-login w-100">
+                <i class="bi bi-box-arrow-in-right">Entrar</i>
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
